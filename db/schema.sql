@@ -56,14 +56,26 @@ INSERT INTO companies (id, name, credit_limit, current_debt) VALUES
 
 DELETE FROM products;
 INSERT INTO products (id, name, base_price) VALUES
-(1, 'Industrial Bolts', 60.00),
-(2, 'Steel Beams', 150.00);
+(1, 'Industrial Bolts (per box)', 450.00),
+(2, 'Steel Beams (per ton)', 45000.00),
+(3, 'Copper Wiring (per meter)', 400.00),
+(4, 'Cement Bags (50kg)', 380.00),
+(5, 'PVC Pipes (per unit)', 120.00);
 
 DELETE FROM pricing_tiers;
 INSERT INTO pricing_tiers (product_id, min_quantity, max_quantity, unit_price) VALUES
-(1, 1, 9, 60.00),
-(1, 10, 99, 50.00),
-(1, 100, NULL, 40.00),
-(2, 1, 19, 150.00),
-(2, 20, 49, 130.00),
-(2, 50, NULL, 110.00);
+(1, 1, 9, 450.00),
+(1, 10, 99, 420.00),
+(1, 100, NULL, 380.00),
+(2, 1, 4, 45000.00),
+(2, 5, 19, 43000.00),
+(2, 20, NULL, 40000.00),
+(3, 1, 49, 400.00),
+(3, 50, 199, 380.00),
+(3, 200, NULL, 350.00),
+(4, 1, 49, 380.00),
+(4, 50, 199, 360.00),
+(4, 200, NULL, 340.00),
+(5, 1, 99, 120.00),
+(5, 100, 499, 105.00),
+(5, 500, NULL, 90.00);
