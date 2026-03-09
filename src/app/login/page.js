@@ -39,8 +39,8 @@ export default function Login() {
   };
 
   return (
-    <div className="container" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <div className="card" style={{ maxWidth: '400px', width: '100%' }}>
+    <div className="container animate-fade-in-up" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div className="card animate-fade-in-up delay-100" style={{ maxWidth: '400px', width: '100%' }}>
         <h2 style={{ textAlign: 'center' }}>Admin Portal Login</h2>
         <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1.5rem' }}>
           
@@ -78,7 +78,7 @@ export default function Login() {
 
           <button 
             type="submit" 
-            className="btn btn-primary" 
+            className="btn btn-primary animate-fade-in-up delay-200" 
             disabled={loading}
             style={{ width: '100%', marginTop: '0.5rem' }}
           >

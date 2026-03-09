@@ -116,11 +116,20 @@ export default function ProductDetail({ params }) {
     }
   };
 
-  if (loading) return <div className="container" style={{ padding: '2rem' }}>Loading Product...</div>;
+  if (loading) return (
+    <div className="container" style={{ padding: '2rem 0', maxWidth: '800px' }}>
+      <div className="skeleton" style={{ height: '24px', width: '150px', marginBottom: '1rem' }}></div>
+      <div className="skeleton" style={{ height: '40px', width: '300px', marginBottom: '2rem' }}></div>
+      <div style={{ display: 'grid', gap: '2rem', gridTemplateColumns: 'minmax(300px, 1.5fr) 1fr' }}>
+        <div className="skeleton" style={{ height: '300px', width: '100%' }}></div>
+        <div className="skeleton" style={{ height: '300px', width: '100%' }}></div>
+      </div>
+    </div>
+  );
   if (!product) return <div className="container" style={{ padding: '2rem' }}>Product not found. <Link href="/dashboard" className="text-primary">Return to dashboard.</Link></div>;
 
   return (
-    <div className="container" style={{ padding: '2rem 0', maxWidth: '800px' }}>
+    <div className="container animate-fade-in-up" style={{ padding: '2rem 0', maxWidth: '800px' }}>
       
       <div style={{ marginBottom: '2rem' }}>
         <Link href="/dashboard" className="text-link" style={{ marginBottom: '1rem' }}>
@@ -136,7 +145,7 @@ export default function ProductDetail({ params }) {
       <div style={{ display: 'grid', gap: '2rem', gridTemplateColumns: 'minmax(300px, 1.5fr) 1fr' }}>
         
         {/* Tier Pricing Table */}
-        <section className="card">
+        <section className="card animate-fade-in-up delay-100">
           <h2 style={{ fontSize: '1.25rem', marginBottom: '1.5rem' }}>Bulk Pricing Tiers</h2>
           <div style={{ border: '1px solid var(--border)', borderRadius: '8px', overflow: 'hidden' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
@@ -165,7 +174,7 @@ export default function ProductDetail({ params }) {
         </section>
 
         {/* Order Calculator Form */}
-        <section className="card" style={{ display: 'flex', flexDirection: 'column', alignSelf: 'start', position: 'sticky', top: '2rem' }}>
+        <section className="card animate-fade-in-up delay-200" style={{ display: 'flex', flexDirection: 'column', alignSelf: 'start', position: 'sticky', top: '2rem' }}>
            <h2 style={{ fontSize: '1.25rem', marginBottom: '1.5rem' }}>Calculator</h2>
            
            <div style={{ marginBottom: '1.5rem' }}>

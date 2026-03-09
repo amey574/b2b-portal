@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 export default function CompaniesPage() {
   const [companies, setCompanies] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [editingId, setEditingId] = useState(null);
   const [editLimitValue, setEditLimitValue] = useState('');
@@ -41,6 +42,7 @@ export default function CompaniesPage() {
     const name = e.target.name.value;
     const credit_limit = parseFloat(e.target.credit_limit.value);
 
+    setSubmitting(true);
     try {
       const res = await fetch('/api/companies', {
         method: 'POST',
@@ -56,6 +58,8 @@ export default function CompaniesPage() {
       }
     } catch (err) {
       setError('Error creating company');
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -124,7 +128,7 @@ export default function CompaniesPage() {
   if (loading) return <div className="container" style={{ padding: '2rem' }}>Loading Companies...</div>;
 
   return (
-    <div className="container" style={{ padding: '2rem 0' }}>
+    <div className="container animate-fade-in-up" style={{ padding: '2rem 0' }}>
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
         <div>
            <h1 style={{ marginBottom: '0.25rem' }}>Admin Hub</h1>
@@ -133,35 +137,42 @@ export default function CompaniesPage() {
         <button onClick={handleLogout} className="btn" style={{ border: '1px solid var(--border)' }}>Logout Admin</button>
       </header>
 
-      {error && <div className="card text-error" style={{ marginBottom: '2rem' }}>{error}</div>}
+      {error && <div className="card text-error animate-fade-in-up" style={{ marginBottom: '2rem' }}>{error}</div>}
 
       <div style={{ display: 'grid', gap: '2rem', gridTemplateColumns: 'minmax(300px, 1fr) 2fr' }}>
         
         {/* Create Company Form */}
-        <section className="card">
+        <section className="card animate-fade-in-up delay-100">
            <h2>Add New Company</h2>
            <form onSubmit={handleCreateCompany} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1.5rem' }}>
              <div>
                 <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem' }}>Company Name</label>
-                <input type="text" name="name" className="input-field" placeholder="e.g. Acme Corp" required />
+                <input type="text" name="name" className="input-field" placeholder="e.g. Acme Corp" required disabled={submitting} />
              </div>
              <div>
                 <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem' }}>Initial Credit Limit (₹)</label>
-                <input type="number" name="credit_limit" min="0" step="100" className="input-field" placeholder="10000" required />
+                <input type="number" name="credit_limit" min="0" step="100" className="input-field" placeholder="10000" required disabled={submitting} />
              </div>
-             <button type="submit" className="btn btn-primary" style={{ marginTop: '0.5rem' }}>Create Company</button>
+             <button type="submit" className="btn btn-primary" style={{ marginTop: '0.5rem' }} disabled={submitting}>
+                {submitting ? 'Creating...' : 'Create Company'}
+             </button>
            </form>
         </section>
 
         {/* Company List */}
-        <section className="card">
+        <section className="card animate-fade-in-up delay-200">
            <h2>Registered Companies</h2>
            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1.5rem' }}>
-             {companies.length === 0 ? (
+             {loading ? (
+               // Loading Skeletons for companies list
+               Array.from({ length: 3 }).map((_, i) => (
+                 <div key={i} className="skeleton" style={{ height: '80px', width: '100%', marginBottom: '1rem' }}></div>
+               ))
+             ) : companies.length === 0 ? (
                <p className="text-muted">No companies found.</p>
              ) : (
-               companies.map(company => (
-                 <div key={company.id} className="row-hover" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem', background: 'var(--background)', borderRadius: '12px', border: '1px solid var(--border)' }}>
+               companies.map((company, index) => (
+                 <div key={company.id} className={`row-hover animate-fade-in-up delay-${Math.min((index + 3) * 100, 500)}`} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem', background: 'var(--background)', borderRadius: '12px', border: '1px solid var(--border)' }}>
                     <div style={{ flex: 1, cursor: 'pointer' }} onClick={() => handleSelectCompany(company)}>
                       <h3 style={{ fontSize: '1.125rem', marginBottom: '0.25rem', color: 'var(--primary)', textDecoration: 'underline' }}>{company.name}</h3>
                       <div className="text-muted" style={{ fontSize: '0.875rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>

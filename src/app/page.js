@@ -16,8 +16,8 @@ export default function Home() {
   }, [router]);
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
-      <p className="text-muted">Loading...</p>
+    <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+      <p className="text-muted animate-pulse" style={{ fontSize: '1.25rem', letterSpacing: '0.05em' }}>Loading B2B Portal...</p>
     </div>
   );
 }
