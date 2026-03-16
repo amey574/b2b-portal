@@ -28,8 +28,8 @@ function OrderDetails() {
   }
 
   return (
-    <div className="container" style={{ padding: '4rem 0', display: 'flex', justifyContent: 'center' }}>
-      <div className="card" style={{ maxWidth: '600px', width: '100%' }}>
+    <div className="container animate-fade-in-up" style={{ padding: '3rem 0', display: 'flex', justifyContent: 'center' }}>
+      <div className="card animate-fade-in-up delay-100" style={{ maxWidth: '600px', width: '100%' }}>
         
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <div style={{

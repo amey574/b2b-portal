@@ -58,28 +58,48 @@ export default function Dashboard() {
   };
 
   if (loading) return (
-    <div className="container" style={{ padding: '2rem' }}>
-      <div className="skeleton" style={{ height: '40px', width: '200px', marginBottom: '2rem' }}></div>
+    <div className="container" style={{ padding: '2rem 0' }}>
+      <div className="skeleton" style={{ height: '32px', width: '180px', marginBottom: '1.5rem' }}></div>
       <div style={{ display: 'grid', gap: '2rem', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
-        <div className="skeleton" style={{ height: '300px', width: '100%' }}></div>
-        <div className="skeleton" style={{ height: '300px', width: '100%' }}></div>
+        <div className="skeleton" style={{ height: '280px', width: '100%' }}></div>
+        <div className="skeleton" style={{ height: '280px', width: '100%' }}></div>
       </div>
     </div>
   );
 
   return (
     <div className="container animate-fade-in-up" style={{ padding: '2rem 0' }}>
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+      <header
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'flex-end',
+          marginBottom: '2rem',
+          gap: '1rem',
+        }}
+      >
         <div>
-           <h1 style={{ marginBottom: '0.25rem' }}>Dashboard</h1>
-           <p className="text-muted">Viewing data for {activeCompany?.name}</p>
+          <p
+            className="text-muted"
+            style={{
+              textTransform: 'uppercase',
+              letterSpacing: '0.28em',
+              fontSize: '0.75rem',
+            }}
+          >
+            Company dashboard
+          </p>
+          <h1 style={{ marginBottom: '0.25rem' }}>{activeCompany?.name}</h1>
+          <p className="page-subtitle">
+            Live credit position, repayment controls and product catalog for this company.
+          </p>
         </div>
         <button onClick={handleBackToAdmin} className="text-link">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="19" y1="12" x2="5" y2="12"></line>
             <polyline points="12 19 5 12 12 5"></polyline>
           </svg>
-          Back to Admin Hub
+          Back to admin hub
         </button>
       </header>
 
@@ -90,29 +110,25 @@ export default function Dashboard() {
         {/* Credit Summary Board */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           <section className="card animate-fade-in-up delay-100">
-             <h2>Credit Summary</h2>
-             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1.5rem' }}>
-                
-                <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '1rem', borderBottom: '1px solid var(--border)' }}>
-                   <span className="text-muted">Credit Limit</span>
-                   <span style={{ fontWeight: 600 }}>₹{creditInfo?.credit_limit?.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
-                </div>
-                
-                <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '1rem', borderBottom: '1px solid var(--border)' }}>
-                   <span className="text-muted">Current Debt</span>
-                   <span className="text-error" style={{ fontWeight: 600 }}>₹{creditInfo?.current_debt?.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
-                </div>
-                
-                <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '0.5rem' }}>
-                   <span style={{ fontWeight: 600 }}>Available Credit</span>
-                   <span className="text-success" style={{ fontWeight: 700, fontSize: '1.25rem' }}>₹{creditInfo?.available_credit?.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
-                </div>
-
-             </div>
+            <h2>Credit summary</h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1.5rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '1rem', borderBottom: '1px dashed var(--border)' }}>
+                <span className="text-muted">Credit limit</span>
+                <span style={{ fontWeight: 600 }}>₹{creditInfo?.credit_limit?.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '1rem', borderBottom: '1px dashed var(--border)' }}>
+                <span className="text-muted">Current debt</span>
+                <span className="text-error" style={{ fontWeight: 600 }}>₹{creditInfo?.current_debt?.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '0.5rem' }}>
+                <span style={{ fontWeight: 600 }}>Available credit</span>
+                <span className="text-success" style={{ fontWeight: 700, fontSize: '1.25rem' }}>₹{creditInfo?.available_credit?.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+              </div>
+            </div>
           </section>
 
             <div className="animate-fade-in-up delay-200" style={{ padding: '1.25rem', background: 'var(--background)', borderRadius: '8px', border: '1px solid var(--border)' }}>
-               <h3 style={{ fontSize: '1.125rem', marginBottom: '1rem' }}>Repay Debt</h3>
+               <h3 style={{ fontSize: '1.125rem', marginBottom: '1rem' }}>Repay debt</h3>
                <form onSubmit={async (e) => {
                  e.preventDefault();
                  const amount = parseFloat(e.target.amount.value);
@@ -177,7 +193,7 @@ export default function Dashboard() {
 
         {/* Product List */}
         <section className="card animate-fade-in-up delay-300">
-           <h2>Available Products</h2>
+           <h2>Available products</h2>
            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1.5rem' }}>
              {products.length === 0 ? (
                <p className="text-muted">No products available at this time.</p>

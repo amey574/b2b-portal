@@ -126,7 +126,20 @@ export default function ProductDetail({ params }) {
       </div>
     </div>
   );
-  if (!product) return <div className="container" style={{ padding: '2rem' }}>Product not found. <Link href="/dashboard" className="text-primary">Return to dashboard.</Link></div>;
+  if (!product) return (
+    <div className="container" style={{ padding: '2rem 0' }}>
+      <div className="card" style={{ maxWidth: '540px' }}>
+        <p className="text-muted" style={{ marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.24em', fontSize: '0.75rem' }}>Product</p>
+        <h2 style={{ marginBottom: '0.75rem' }}>Product not found</h2>
+        <p className="page-subtitle" style={{ marginBottom: '1.5rem' }}>
+          The product you tried to open is not available. It might have been removed or the link is outdated.
+        </p>
+        <Link href="/dashboard" className="btn">
+          Return to dashboard
+        </Link>
+      </div>
+    </div>
+  );
 
   return (
     <div className="container animate-fade-in-up" style={{ padding: '2rem 0', maxWidth: '800px' }}>
@@ -140,6 +153,9 @@ export default function ProductDetail({ params }) {
           Back to Dashboard
         </Link>
         <h1>{product.name}</h1>
+        <p className="page-subtitle">
+          Explore bulk pricing tiers and calculate how this order will impact the company&apos;s credit instantly.
+        </p>
       </div>
 
       <div style={{ display: 'grid', gap: '2rem', gridTemplateColumns: 'minmax(300px, 1.5fr) 1fr' }}>
