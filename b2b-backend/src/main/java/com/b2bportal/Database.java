@@ -22,9 +22,14 @@ public class Database {
                 e.printStackTrace();
             }
 
-            connection = DriverManager.getConnection(DEFAULT_DB_URL, DB_USER, DB_PASSWORD);
-
-            System.out.println("Connected to MySQL database.");
+            try {
+                connection = DriverManager.getConnection(DEFAULT_DB_URL, DB_USER, DB_PASSWORD);
+                System.out.println("Connected to MySQL database.");
+            } catch (SQLException e) {
+                System.err.println("FAILED to connect to MySQL database at " + DEFAULT_DB_URL);
+                System.err.println("Error: " + e.getMessage());
+                throw e;
+            }
         }
         return connection;
     }
