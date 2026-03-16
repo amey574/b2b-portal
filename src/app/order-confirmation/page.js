@@ -3,6 +3,7 @@
 import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import AnimatedNumber from '../_components/AnimatedNumber';
 
 function OrderDetails() {
   const searchParams = useSearchParams();
@@ -60,12 +61,28 @@ function OrderDetails() {
           
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
             <span className="text-muted">Unit Price</span>
-            <span>₹{parseFloat(unitPrice).toFixed(2)}</span>
+            <span>
+              ₹
+              <AnimatedNumber
+                value={Number.parseFloat(unitPrice)}
+                format={(n) => n.toFixed(2)}
+                durationMs={320}
+              />
+            </span>
           </div>
           
           <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem', paddingTop: '1rem', borderTop: '1px dashed var(--border)' }}>
             <span style={{ fontWeight: 600 }}>Total Charged</span>
-            <span style={{ fontWeight: 700, fontSize: '1.25rem' }}>₹{parseFloat(totalAmount).toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+            <span style={{ fontWeight: 700, fontSize: '1.25rem' }}>
+              ₹
+              <AnimatedNumber
+                value={Number.parseFloat(totalAmount)}
+                format={(n) =>
+                  n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                }
+                durationMs={360}
+              />
+            </span>
           </div>
         </div>
 
@@ -73,7 +90,14 @@ function OrderDetails() {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontWeight: 500 }}>New Available Credit:</span>
             <span className="text-success" style={{ fontWeight: 700, fontSize: '1.25rem' }}>
-               ₹{parseFloat(newCredit).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+               ₹
+               <AnimatedNumber
+                 value={Number.parseFloat(newCredit)}
+                 format={(n) =>
+                   n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                 }
+                 durationMs={420}
+               />
             </span>
           </div>
         </div>

@@ -1,24 +1,22 @@
 :root {
   /* Core palette */
-  --background: radial-gradient(circle at top left, #0b1120 0, #020617 45%, #020617 100%);
+  --background: radial-gradient(circle at top left, #0b1224 0, #020617 52%, #020617 100%);
   --background-solid: #020617;
-  --foreground: #e5e7eb;
-  /* Zinc 200 */
+  --foreground: #e7eaf0;
   --primary: #6366f1;
   /* Indigo 500 */
   --primary-soft: rgba(99, 102, 241, 0.18);
   --primary-hover: #4f46e5;
   /* Indigo 600 */
-  --accent: #22c55e;
-  /* Green 500 */
-  --surface: rgba(15, 23, 42, 0.9);
-  /* Glassy slate */
-  --surface-soft: rgba(15, 23, 42, 0.7);
-  --surface-hover: rgba(30, 64, 175, 0.2);
-  --border: rgba(148, 163, 184, 0.25);
+  --accent: #22c55e; /* success only */
+  --surface: rgba(15, 23, 42, 0.88);
+  --surface-soft: rgba(15, 23, 42, 0.72);
+  --surface-hover: rgba(30, 41, 59, 0.55); /* slate hover, not blue */
+  --border: rgba(148, 163, 184, 0.22);
   --error: #ef4444;
   --success: #22c55e;
   --text-muted: #94a3b8;
+  --text-muted-strong: rgba(148, 163, 184, 0.9);
 
   /* Layout tokens */
   --radius-lg: 18px;
@@ -90,9 +88,9 @@ input {
   width: 520px;
   height: 520px;
   border-radius: 999px;
-  background: radial-gradient(circle at center, rgba(59, 130, 246, 0.18), transparent 60%);
+  background: radial-gradient(circle at center, rgba(99, 102, 241, 0.18), transparent 60%);
   filter: blur(4px);
-  opacity: 0.75;
+  opacity: 0.65;
   pointer-events: none;
   z-index: -1;
 }
@@ -105,7 +103,7 @@ input {
 .app-shell::after {
   bottom: -160px;
   left: -120px;
-  background: radial-gradient(circle at center, rgba(34, 197, 94, 0.16), transparent 60%);
+  background: radial-gradient(circle at center, rgba(99, 102, 241, 0.12), transparent 60%);
 }
 
 .app-nav {
@@ -194,7 +192,7 @@ input {
 
 .card {
   background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.9));
-  border: 1px solid rgba(148, 163, 184, 0.28);
+  border: 1px solid rgba(148, 163, 184, 0.24);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
   box-shadow:
@@ -214,24 +212,47 @@ input {
   transform: translateY(-4px);
   box-shadow:
     0 28px 80px rgba(15, 23, 42, 0.9),
-    0 0 0 1px rgba(79, 70, 229, 0.8);
-  border-color: rgba(129, 140, 248, 0.6);
+    0 0 0 1px rgba(148, 163, 184, 0.22);
+  border-color: rgba(148, 163, 184, 0.32);
 }
 
 .card::before {
   content: '';
   position: absolute;
   inset: -40%;
-  background: radial-gradient(circle at top left, rgba(129, 140, 248, 0.14), transparent 55%);
-  opacity: 0;
-  transform: translate3d(-10px, -10px, 0);
+  background:
+    radial-gradient(circle at top left, rgba(99, 102, 241, 0.12), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(148, 163, 184, 0.08), transparent 50%);
+  opacity: 0.5;
+  transform: translate3d(-14px, -14px, 0) rotate(-8deg);
   transition: opacity var(--transition-slow), transform var(--transition-slow);
   pointer-events: none;
 }
 
 .card:hover::before {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
+  opacity: 0.9;
+  transform: translate3d(0, 0, 0) rotate(0deg);
+}
+
+/* Premium "sheen" sweep on hover (subtle) */
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.04) 35%,
+    rgba(255, 255, 255, 0.06) 45%,
+    transparent 60%
+  );
+  transform: translateX(-120%);
+  transition: transform var(--transition-slow);
+  pointer-events: none;
+}
+
+.card:hover::after {
+  transform: translateX(120%);
 }
 
 .btn {
@@ -254,27 +275,57 @@ input {
 .btn-primary {
   background:
     radial-gradient(circle at top left, rgba(244, 244, 245, 0.18), transparent 52%),
-    linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 50%, #22c55e 100%);
+    linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 70%, #4f46e5 100%);
   color: white;
   border: none;
   box-shadow:
-    0 14px 35px rgba(59, 130, 246, 0.7),
-    0 0 0 1px rgba(15, 23, 42, 0.9);
+    0 10px 24px rgba(2, 6, 23, 0.55),
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 0 0 1px rgba(148, 163, 184, 0.16);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(248, 250, 252, 0.26) 45%,
+    rgba(248, 250, 252, 0.4) 55%,
+    transparent 70%
+  );
+  mix-blend-mode: screen;
+  transform: translateX(-140%);
+  opacity: 0;
+  transition:
+    transform var(--transition-slow),
+    opacity var(--transition-fast);
+  pointer-events: none;
 }
 
 .btn-primary:hover {
   background:
     radial-gradient(circle at top left, rgba(248, 250, 252, 0.26), transparent 52%),
-    linear-gradient(135deg, #4f46e5 0%, var(--primary-hover) 50%, #16a34a 100%);
+    linear-gradient(135deg, #4f46e5 0%, var(--primary-hover) 70%, #4338ca 100%);
   transform: translateY(-2px);
   box-shadow:
-    0 22px 45px rgba(59, 130, 246, 0.9),
-    0 0 0 1px rgba(15, 23, 42, 0.9);
+    0 14px 30px rgba(2, 6, 23, 0.62),
+    0 1px 0 rgba(255, 255, 255, 0.07) inset,
+    0 0 0 1px rgba(129, 140, 248, 0.18);
+}
+
+.btn-primary:hover::before {
+  opacity: 1;
+  transform: translateX(140%);
 }
 
 .btn-primary:active {
   transform: scale(0.96) translateY(0);
-  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+  box-shadow:
+    0 6px 14px rgba(2, 6, 23, 0.55),
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 0 0 1px rgba(148, 163, 184, 0.14);
 }
 
 .btn-primary:disabled {
@@ -328,6 +379,10 @@ input {
 .text-muted {
   color: var(--text-muted);
   transition: color 0.2s ease;
+}
+
+.text-muted-strong {
+  color: var(--text-muted-strong);
 }
 
 .text-error {
@@ -514,4 +569,29 @@ h3 {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto !important;
+  }
+
+  .animate-fade-in-up,
+  .animate-pulse,
+  .skeleton {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .card,
+  .btn,
+  .input-field,
+  .row-hover {
+    transition: none !important;
+  }
+
+  .card::after {
+    display: none !important;
+  }
 }

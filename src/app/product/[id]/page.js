@@ -3,6 +3,7 @@
 import { useEffect, useState, use } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import AnimatedNumber from '../../_components/AnimatedNumber';
 
 export default function ProductDetail({ params }) {
   const unwrappedParams = use(params);
@@ -172,18 +173,50 @@ export default function ProductDetail({ params }) {
                 </tr>
               </thead>
               <tbody>
-                {product.tiers.map((tier, idx) => (
-                  <tr key={idx} className="row-hover" style={{ 
-                    borderBottom: idx === product.tiers.length - 1 ? 'none' : '1px solid var(--border)',
-                    background: (quantity >= tier.min_quantity && quantity <= (tier.max_quantity || Infinity)) ? 'var(--surface-hover)' : 'transparent',
-                    transition: 'all 0.2s ease',
-                  }}>
-                    <td style={{ padding: '1rem' }}>
-                      {tier.min_quantity}{tier.max_quantity ? ` - ${tier.max_quantity}` : '+'} units
-                    </td>
-                    <td style={{ padding: '1rem', fontWeight: 600 }}>₹{tier.unit_price.toFixed(2)}</td>
-                  </tr>
-                ))}
+                {product.tiers.map((tier, idx) => {
+                  const isActive =
+                    quantity >= tier.min_quantity &&
+                    quantity <= (tier.max_quantity || Infinity);
+
+                  return (
+                    <tr
+                      key={idx}
+                      className="row-hover"
+                      style={{
+                        borderBottom:
+                          idx === product.tiers.length - 1
+                            ? 'none'
+                            : '1px solid var(--border)',
+                        background: isActive ? 'var(--surface-hover)' : 'transparent',
+                        transition: 'all 0.24s ease',
+                        position: 'relative',
+                        boxShadow: isActive
+                          ? '0 0 0 1px rgba(99,102,241,0.45), 0 18px 35px rgba(15,23,42,0.75)'
+                          : 'none',
+                      }}
+                    >
+                      {isActive && (
+                        <td
+                          style={{
+                            position: 'absolute',
+                            inset: 0,
+                            width: 4,
+                            background:
+                              'linear-gradient(to bottom, rgba(99,102,241,0.9), rgba(129,140,248,0.1))',
+                            borderRadius: 999,
+                          }}
+                        />
+                      )}
+                      <td style={{ padding: '1rem', paddingLeft: isActive ? '1.25rem' : '1rem' }}>
+                        {tier.min_quantity}
+                        {tier.max_quantity ? ` - ${tier.max_quantity}` : '+'} units
+                      </td>
+                      <td style={{ padding: '1rem', fontWeight: 600 }}>
+                        ₹{tier.unit_price.toFixed(2)}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -208,11 +241,27 @@ export default function ProductDetail({ params }) {
            <div style={{ background: 'var(--background)', padding: '1.25rem', borderRadius: '8px', marginBottom: '1.5rem' }}>
              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
                 <span className="text-muted">Unit Price</span>
-                <span>₹{currentUnitPrice.toFixed(2)}</span>
+               <span>
+                 ₹
+                 <AnimatedNumber
+                   value={currentUnitPrice}
+                   format={(n) => n.toFixed(2)}
+                   durationMs={320}
+                 />
+               </span>
              </div>
              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid var(--border)' }}>
                 <span style={{ fontWeight: 600 }}>Total</span>
-                <span style={{ fontWeight: 700, fontSize: '1.5rem', color: 'var(--primary)' }}>₹{totalPrice.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+               <span style={{ fontWeight: 700, fontSize: '1.5rem', color: 'var(--primary)' }}>
+                 ₹
+                 <AnimatedNumber
+                   value={totalPrice}
+                   format={(n) =>
+                     n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                   }
+                   durationMs={360}
+                 />
+               </span>
              </div>
            </div>
 

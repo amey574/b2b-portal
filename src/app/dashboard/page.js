@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import AnimatedNumber from '../_components/AnimatedNumber';
 
 export default function Dashboard() {
   const [activeCompany, setActiveCompany] = useState(null);
@@ -114,15 +115,39 @@ export default function Dashboard() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1.5rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '1rem', borderBottom: '1px dashed var(--border)' }}>
                 <span className="text-muted">Credit limit</span>
-                <span style={{ fontWeight: 600 }}>₹{creditInfo?.credit_limit?.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+                <span style={{ fontWeight: 600 }}>
+                  ₹
+                  <AnimatedNumber
+                    value={creditInfo?.credit_limit ?? null}
+                    format={(n) =>
+                      n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                    }
+                  />
+                </span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '1rem', borderBottom: '1px dashed var(--border)' }}>
                 <span className="text-muted">Current debt</span>
-                <span className="text-error" style={{ fontWeight: 600 }}>₹{creditInfo?.current_debt?.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+                <span className="text-error" style={{ fontWeight: 600 }}>
+                  ₹
+                  <AnimatedNumber
+                    value={creditInfo?.current_debt ?? null}
+                    format={(n) =>
+                      n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                    }
+                  />
+                </span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '0.5rem' }}>
                 <span style={{ fontWeight: 600 }}>Available credit</span>
-                <span className="text-success" style={{ fontWeight: 700, fontSize: '1.25rem' }}>₹{creditInfo?.available_credit?.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+                <span className="text-success" style={{ fontWeight: 700, fontSize: '1.25rem' }}>
+                  ₹
+                  <AnimatedNumber
+                    value={creditInfo?.available_credit ?? null}
+                    format={(n) =>
+                      n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                    }
+                  />
+                </span>
               </div>
             </div>
           </section>
