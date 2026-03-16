@@ -1,21 +1,21 @@
 :root {
   /* Core palette */
-  --background: radial-gradient(circle at top left, #0b1224 0, #020617 52%, #020617 100%);
-  --background-solid: #020617;
-  --foreground: #e7eaf0;
+  --background: radial-gradient(circle at top left, #0b1020 0, #05060a 46%, #05060a 100%);
+  --background-solid: #05060a;
+  --foreground: #eceef3;
   --primary: #6366f1;
   /* Indigo 500 */
-  --primary-soft: rgba(99, 102, 241, 0.18);
+  --primary-soft: rgba(99, 102, 241, 0.16);
   --primary-hover: #4f46e5;
   /* Indigo 600 */
   --accent: #22c55e; /* success only */
-  --surface: rgba(15, 23, 42, 0.88);
-  --surface-soft: rgba(15, 23, 42, 0.72);
-  --surface-hover: rgba(30, 41, 59, 0.55); /* slate hover, not blue */
-  --border: rgba(148, 163, 184, 0.22);
+  --surface: rgba(10, 12, 18, 0.92);
+  --surface-soft: rgba(10, 12, 18, 0.76);
+  --surface-hover: rgba(17, 24, 39, 0.72);
+  --border: rgba(148, 163, 184, 0.16);
   --error: #ef4444;
   --success: #22c55e;
-  --text-muted: #94a3b8;
+  --text-muted: rgba(148, 163, 184, 0.78);
   --text-muted-strong: rgba(148, 163, 184, 0.9);
 
   /* Layout tokens */
@@ -88,9 +88,9 @@ input {
   width: 520px;
   height: 520px;
   border-radius: 999px;
-  background: radial-gradient(circle at center, rgba(99, 102, 241, 0.18), transparent 60%);
+  background: radial-gradient(circle at center, rgba(99, 102, 241, 0.14), transparent 60%);
   filter: blur(4px);
-  opacity: 0.65;
+  opacity: 0.55;
   pointer-events: none;
   z-index: -1;
 }
@@ -103,7 +103,7 @@ input {
 .app-shell::after {
   bottom: -160px;
   left: -120px;
-  background: radial-gradient(circle at center, rgba(99, 102, 241, 0.12), transparent 60%);
+  background: radial-gradient(circle at center, rgba(99, 102, 241, 0.1), transparent 60%);
 }
 
 .app-nav {
@@ -111,8 +111,8 @@ input {
   top: 0;
   z-index: 30;
   backdrop-filter: blur(var(--blur-strong));
-  background: linear-gradient(to bottom, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.8), transparent);
-  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+  background: linear-gradient(to bottom, rgba(10, 12, 18, 0.92), rgba(10, 12, 18, 0.7), transparent);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
 }
 
 .app-nav-inner {
@@ -129,11 +129,11 @@ input {
   width: 32px;
   height: 32px;
   border-radius: 999px;
-  background: conic-gradient(from 180deg, #6366f1, #22c55e, #06b6d4, #6366f1);
+  background: conic-gradient(from 180deg, #6366f1, #818cf8, #38bdf8, #6366f1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.9), 0 12px 30px rgba(15, 23, 42, 0.9);
+  box-shadow: 0 0 0 1px rgba(2, 6, 23, 0.9), 0 12px 30px rgba(2, 6, 23, 0.85);
 }
 
 .app-logo-inner {

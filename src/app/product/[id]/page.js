@@ -188,26 +188,16 @@ export default function ProductDetail({ params }) {
                             ? 'none'
                             : '1px solid var(--border)',
                         background: isActive ? 'var(--surface-hover)' : 'transparent',
-                        transition: 'all 0.24s ease',
+                        transition: 'background 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease',
                         position: 'relative',
                         boxShadow: isActive
-                          ? '0 0 0 1px rgba(99,102,241,0.45), 0 18px 35px rgba(15,23,42,0.75)'
+                          ? '0 0 0 1px rgba(99,102,241,0.5), 0 14px 28px rgba(5,6,12,0.75)'
                           : 'none',
+                        transform: isActive ? 'translateY(-4px) scale(1.01)' : 'translateY(0) scale(1)',
+                        zIndex: isActive ? 1 : 0,
                       }}
                     >
-                      {isActive && (
-                        <td
-                          style={{
-                            position: 'absolute',
-                            inset: 0,
-                            width: 4,
-                            background:
-                              'linear-gradient(to bottom, rgba(99,102,241,0.9), rgba(129,140,248,0.1))',
-                            borderRadius: 999,
-                          }}
-                        />
-                      )}
-                      <td style={{ padding: '1rem', paddingLeft: isActive ? '1.25rem' : '1rem' }}>
+                      <td style={{ padding: '1rem', borderLeft: isActive ? '4px solid rgba(99,102,241,0.9)' : '4px solid transparent' }}>
                         {tier.min_quantity}
                         {tier.max_quantity ? ` - ${tier.max_quantity}` : '+'} units
                       </td>
