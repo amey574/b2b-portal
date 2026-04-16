@@ -6,9 +6,14 @@ import java.sql.SQLException;
 import java.io.File;
 
 public class Database {
-    private static final String DEFAULT_DB_URL = "jdbc:mysql://localhost:3306/b2b_portal";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "Singhamey@574";
+    private static String getEnvOr(String name, String fallback) {
+        String value = System.getenv(name);
+        return (value != null && !value.trim().isEmpty()) ? value : fallback;
+    }
+
+    private static final String DEFAULT_DB_URL = getEnvOr("DB_URL", "jdbc:mysql://localhost:3306/b2b_portal");
+    private static final String DB_USER = getEnvOr("DB_USER", "root");
+    private static final String DB_PASSWORD = getEnvOr("DB_PASSWORD", "Singhamey@574");
     private static Connection connection = null;
 
     public static synchronized Connection getConnection() throws SQLException {
