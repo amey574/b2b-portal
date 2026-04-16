@@ -7,8 +7,9 @@ import java.util.concurrent.Executors;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        int port = 8080;
-        HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
+        String portEnv = System.getenv("PORT");
+        int port = (portEnv != null && !portEnv.trim().isEmpty()) ? Integer.parseInt(portEnv) : 8080;
+        HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", port), 0);
         
         // Initialize database connection early to test it
         Database.getConnection();
